@@ -1,0 +1,25 @@
+{% if page_obj.has_other_pages %}
+    <div class="mt-5 mb-5">
+        {% if page_obj.has_previous %}
+            <a class="button is-small is-info is-outlined" href="?page={{ page_obj.previous_page_number }}">←</a>
+        {% else %}
+            <a class="button is-small is-info is-outlined" disabled href="#">←</a>
+        {% endif %}
+
+        {% for num in elided_page_range %}
+            {% if num == page_obj.number %}
+                <a class="button is-small is-info">{{ num }}</a>
+            {% elif num == page_obj.paginator.ELLIPSIS %}
+                <a class="button is-small is-white" disabled>...</a>
+            {% else %}
+                <a class="button is-small is-info is-outlined" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="button is-small is-info is-outlined" href="?page={{ page_obj.next_page_number }}">→</a>
+        {% else %}
+            <a class="button is-small is-info is-outlined" disabled href="#">→</a>
+        {% endif %}
+    </div>
+{% endif %}

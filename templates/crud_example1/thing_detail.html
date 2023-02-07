@@ -1,0 +1,33 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% block app %}
+<nav aria-label="breadcrumbs">
+    <ol class="pg-breadcrumbs">
+      <li><a href="{% url 'crud_example1:thing_list' %}">Things</a></li>
+      <li class="pg-breadcrumb-active" aria-current="page">{{ object.name }}</li>
+    </ol>
+  </nav>
+  <section class="app-card">
+    <h3 class="pg-subtitle">Detail view for {{ object.name }}</h3>
+    <div><strong>Id:</strong> {{ object.id }}</div>
+    <div><strong>Number:</strong> {{ object.number }}</div>
+    <div><strong>Notes:</strong> {{ object.notes }}</div>
+
+    <div class="is-italic mt-2">
+        <div>Created at: {{ object.created_at }}</div>
+        {% if object.modified_at %}
+            <div>Modified at: {{ object.modified_at }}</div>
+        {% endif %}
+    </div>
+    <div class="mt-2">
+        <a href="{% url 'crud_example1:thing_update' object.pk %}" class="pg-button-secondary">
+          <span class="pg-icon"><i class="fa fa-pencil"></i></span>
+          <span>Edit</span>
+        </a>
+        <a href="{% url 'crud_example1:thing_delete' object.pk %}" class="pg-button-danger pg-ml">
+          <span class="pg-icon"><i class="fa fa-times"></i></span>
+          <span>Delete</span>
+        </a>
+      </div>
+    </section>
+{% endblock %}

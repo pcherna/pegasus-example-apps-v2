@@ -1,0 +1,40 @@
+<!-- htmx requests and inserts this HTML when things change -->
+
+<div hx-target="this">
+
+  {% include "web/components/paginator_htmx.html" %}
+
+  {% for object in object_list %}
+  {% if forloop.first %}
+    <div class="table-responsive">
+      <table class="table pg-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% endif %}
+        <tr>
+          <td>
+            <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+          </td>
+          <td>{{ object.number }}</td>
+          <td>{{ object.notes }}</td>
+        </tr>
+        {% if forloop.last %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+  {% empty %}
+  <div class="mb-2">There aren't any things! Add one below.</div>
+  {% endfor %}
+
+  <!-- Uncomment if you want a second paginator at the bottom
+  {% include "web/components/paginator_htmx.html" %}
+  -->
+
+</div>

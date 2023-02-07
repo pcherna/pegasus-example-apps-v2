@@ -1,0 +1,26 @@
+{% if is_paginated %}
+    <div>
+        {% if page_obj.has_previous %}
+            <a class="button is-small is-info is-outlined" hx-get="./?page={{ page_obj.previous_page_number }}" hx-push-url="true" hx-history="false">←</a>
+        {% else %}
+            <a class="button is-small is-info is-outlined" disabled href="#">←</a>
+        {% endif %}
+
+        {% for num in elided_page_range %}
+            {% if num == page_obj.number %}
+                <a class="button is-small is-info">{{ num }}</a>
+            {% elif num == page_obj.paginator.ELLIPSIS %}
+                <a class="button is-small is-white" disabled>...</a>
+            {% else %}
+                <a class="button is-small is-info is-outlined" hx-get="./?page={{ num }}" hx-push-url="true" hx-history="false">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="button is-small is-info is-outlined" hx-get="./?page={{ page_obj.next_page_number }}" hx-push-url="true" hx-history="false">→</a>
+        {% else %}
+            <a class="button is-small is-info is-outlined" disabled href="#">→</a>
+        {% endif %}
+    </div>
+{% endif %}
+

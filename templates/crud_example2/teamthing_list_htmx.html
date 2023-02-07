@@ -1,0 +1,29 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load i18n %}
+{% block page_head %}
+  <script src="https://unpkg.com/htmx.org@1.8.5"
+          integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w"
+          crossorigin="anonymous"
+          defer></script>
+{% endblock %}
+
+{% block app %}
+  <section class="app-card">
+    <h3 class="pg-subtitle">TeamThings</h3>
+    <p>TeamThings are an example team-specific object.</p>
+  </section>
+  <section class="app-card">
+    <h3 class="pg-subtitle">All TeamThings</h3>
+
+    <!-- Include the actual object list -->
+    {% include "crud_example2/teamthing_list_htmx_partial.html" %}
+
+    <div class="mt-2">
+      <a class="pg-button-secondary" href="{% url 'crud_example2:teamthing_create' request.team.slug %}">
+        <span class="pg-icon"><i class="fa fa-plus"></i></span>
+        <span>Add TeamThing</span>
+      </a>
+    </div>
+  </section>
+{% endblock %}
