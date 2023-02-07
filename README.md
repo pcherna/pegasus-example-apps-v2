@@ -60,6 +60,12 @@ git clone git@github.com:pcherna/pegasus-example-apps.git
   * `paginator.html`
   * `paginator_htmx.html`
   * `crud_example_nav.html`
+* Add entries for the example classes to the left nav, by editing `web/components/app_nav.html`, as follows:
+  * After the line `{% include "web/components/team_nav.html" %}`, add:
+
+```python
+    {% include "web/components/crud_example_nav.html" %}
+```
 
 * Activate the apps in your project, in `<project_slug>/settings.py`, to `PROJECT_APPS`, by adding:
 
