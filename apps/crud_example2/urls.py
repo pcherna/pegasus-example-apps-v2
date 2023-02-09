@@ -7,6 +7,9 @@ from . import views
 
 app_name = "crud_example2"
 
+# Function-Based and Class-Based View implementations
+# Only one implementation should be present for each view, comment out the other(s)
+# teamthing_list has three implementations, the other views have two
 urlpatterns = [
     #
     # URL paths for the Function-Based View implementation
