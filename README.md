@@ -187,7 +187,7 @@ so that the main template still includes the list.
 The magic happens in `web/components/paginator_htmx.html`. Whereas the regular paginator `web/components/paginator.html` goes to page _num_ by
 
 ```html
-<a ... href="?page={{ num }}"">
+<a ... href="?page={{ num }}">
 ```
 
 The HTMX version uses
