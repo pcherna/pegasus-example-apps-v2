@@ -1,8 +1,8 @@
-# Example Models for SaaS Pegasus, v2
+# Example Apps for SaaS Pegasus, v2
 
 [SaaS Pegasus](https://saaspegasus.com) is a great framework for getting up and running quickly and robustly with Django web applications.
 
-Here are example apps for SaaS Pegasus. You can use these to help your create and improve your own apps, models, and views, using either Class-Based Views (CBV) or Function-Based Views (FBV).
+Here are example apps for SaaS Pegasus. You can use these to help your create and improve your own apps, models, and views, using either Class-Based Views (CBV) or Function-Based Views (FBV). For what's new, see the [CHANGELOG](CHANGELOG.md).
 
 Some of the things showcased in these examples include:
 
@@ -11,6 +11,8 @@ Some of the things showcased in these examples include:
 * API access to non-team and team-specific objects
 * Use of pagination
 * HTMX to make better-looking updates in pagination
+
+This replaces the older [first version of this project](https://github.com/pcherna/pegasus-example-apps)). It is cleaner, better organized, and is refreshed to match the current Saas Pegasus.
 
 ## Apps and Models Introduction
 
@@ -150,10 +152,60 @@ The Django Paginator class has a helper method called `get_elided_page_range()` 
 
 The `web/components/paginator.html` file implements the logic and visuals for displaying the pagination controls. See also [Tech Notes – HTMX](#tech-notes----htmx), for the HTMX version of pagination.
 
+Our list templates include the paginator at the top of the list, and show how you can include a second copy at the bottom, if desired (can be useful if each page can be quite long).
+
 ## Tech Notes -- HTMX
+
+HTMX lets you send requests from your front-end to Django, and integrate the results back into the page without a full refresh. It's a good companion to Django for a number of different use cases. We use it here to implement pagination of the list view in a way that only redraws the items in the list.
+
+Every request to Django is served by a view. There are a number of different strategies for defining the view for the "partial" pages that an HTMX request typically wants. For pagination, we actually use the same URL, hence the same view. We can look in the HTTP headers to tell an HTMX request from a full page refresh, and return a different result. In our case, we simply want a different template, and we achieve that like so:
+
+```python
+    def get_template_names(self):
+        """If we are receiving an htmx request, return just the partial, else the whole page."""
+        if "HX-Request" in self.request.headers:
+            return ["crud_example1/thing_list_htmx_partial.html"]
+        else:
+            # Use the full template
+            return ["crud_example1/thing_list_htmx.html"]
+```
+
+**Note**: There is a nice package called [django-htmx](https://github.com/adamchainz/django-htmx) (see [django-htmx documentation](https://django-htmx.readthedocs.io/)) – one of its conveniences is that you can use a slightly simpler test, namely:
+
+```python
+        if request.htmx:
+```
+
+Our strategy is to extra the for-loop that renders the actual items into its own template file, here called `teamthing_list_htmx_partial.html`. In the main list template `teamthing_list_htmx.html`, we use
+
+```html
+{% include "crud_example2/teamthing_list_htmx_partial.html" %}
+```
+
+so that the main template still includes the list.
+
+The magic happens in `web/components/paginator_htmx.html`. Whereas the regular paginator `web/components/paginator.html` goes to page _num_ by
+
+```html
+<a ... href="?page={{ num }}"">
+```
+
+The HTMX version uses
+
+```html
+<a ...hx-get="?page={{ num }}">
+```
+
+As you see, this is the same URL, but as an HTMX get-request. That causes Django to return HTML built from the "partial" flavor of the template, which essentially is a `div` containing the paginator and the list of objects. What does the browser do? It replaces the target `div` with this response, and from the partial template we can see where we defined the target `div`:
+
+```html
+<div hx-target="this">
+```
+
+So the correct part of the HTML is replaced, and cleanly re-rendered.
+
+The other HTMX technique we're using is that in the request next to `hx-get`, we also specify `hx-push-url="true"` which causes the new URL to end up in the browser history, part of what we need to allow **Back** and **Next** functionality to work. (This is another reason why using the same URL for full and partial requests is valuable – that URL is ready for inclusion in browser history.) Setting `hx-history="false"` tells HTMX not to cache the history, but to go ask the server when the user hits **Back** or **Next**.
 
 ## Notes and Todos
 
 Any and all comments and suggestions welcome. [peter@cherna.com](mailto:peter@cherna.com)
-
-* I have a decent mixin for team-specific apps using Class Based Views (see `apps/teams/mixins`, but not everything is transparently solved. Looking to see if I can carry this further. I don't yet have a strategy for common team code for team-specific apps using Function Based Views.
