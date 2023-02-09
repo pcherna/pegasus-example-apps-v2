@@ -157,6 +157,10 @@ class TeamThingCreateView(LoginAndTeamRequiredMixin, CreateView):
         context["active_tab"] = "crud_example2"
         return context
 
+    def form_valid(self, form):
+        form.instance.team = self.request.team
+        return super().form_valid(form)
+
 
 class TeamThingUpdateView(LoginAndTeamRequiredMixin, UpdateView):
     """Class-Based View to update a TeamThing."""
@@ -210,7 +214,7 @@ class TeamThingListHtmxView(LoginAndTeamRequiredMixin, ListView):
 
     def get_template_names(self):
         """If we are receiving an htmx request, return just the partial, else the whole page."""
-        if self.request.htmx:
+        if "HX-Request" in self.request.headers:
             return ["crud_example2/teamthing_list_htmx_partial.html"]
         else:
             # Use the full template

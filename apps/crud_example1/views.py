@@ -187,7 +187,7 @@ class ThingListHtmxView(LoginRequiredMixin, ListView):
 
     def get_template_names(self):
         """If we are receiving an htmx request, return just the partial, else the whole page."""
-        if self.request.htmx:
+        if "HX-Request" in self.request.headers:
             return ["crud_example1/thing_list_htmx_partial.html"]
         else:
             # Use the full template
