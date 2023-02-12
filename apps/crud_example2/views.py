@@ -223,7 +223,7 @@ class TeamThingListHtmxView(LoginAndTeamRequiredMixin, ListView):
 
 # --------------------------------------------------------------------------------
 
-# TeamThing (non-team-specific CRUD example) DRF views
+# TeamThing (team-specific CRUD example) DRF views
 
 
 class TeamThingViewSet(viewsets.ModelViewSet):

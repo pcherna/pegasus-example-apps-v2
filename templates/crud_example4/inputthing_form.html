@@ -1,0 +1,77 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load form_tags_x %}
+{% block page_head %}
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+{% endblock page_head %}
+{% block app %}
+  <nav aria-label="breadcrumbs">
+    <ol class="pg-breadcrumbs">
+      <li>
+        <a href="{% url 'crud_example4:inputthing_list' request.team.slug %}">InputThings</a>
+      </li>
+      {% if object %}
+        <li>
+          <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+        </li>
+        <li class="pg-breadcrumb-active" aria-current="page">Edit</li>
+      {% else %}
+        <li class="pg-breadcrumb-active" aria-current="page">New</li>
+      {% endif %}
+    </ol>
+  </nav>
+  <section class="app-card">
+    <h3 class="pg-subtitle">
+      {% if object %}
+        Edit {{ object.name }}
+      {% else %}
+        New InputThing
+      {% endif %}
+    </h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div x-data="{
+        extra: {{ form.extra.value|lower }},
+        email: '{{ form.email.value|escapejs }}',
+
+        // From https://www.w3docs.com/snippets/javascript/how-to-validate-an-e-mail-using-javascript.html
+        validateEmail(email) {
+          const res = /^(([^&lt;&gt;()\[\]\\.,;:\s@&quot;]+(\.[^&lt;&gt;()\[\]\\.,;:\s@&quot;]+)*)|(&quot;.+&quot;))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return res.test(String(email).toLowerCase());
+        }
+      }">
+      <div class="columns">
+        <div class="column is-6">
+          {% render_text_input form.name %}
+        </div>
+        <div class="column is-6">
+          {% render_text_input form.birthdate type="date" %}
+        </div>
+      </div>
+      <div class="mb-3">
+        {% render_text_input form.email xmodel="email" %}
+        <span class="pg-icon has-text-success" x-show="validateEmail(email)">
+          <i class="fa fa-circle-check mr-1"></i>
+          Looks like a valid email address
+        </span>
+        <span class="pg-icon has-text-danger" x-show="email != '' && !validateEmail(email)">
+          <i class="fa fa-circle-xmark mr-1"></i>
+          Please provide a valid email
+        </span>
+      </div>
+      {% render_checkbox_input form.extra xmodel="extra" %}
+        <div x-cloak x-show="extra"
+          x-transition.duration.250ms
+          >
+          {% render_text_input form.number %}
+          {% render_text_input form.blocked1 disabled=True %}
+          {% render_text_input form.blocked2 locked=True %}
+          {% render_text_input form.notes1 %}
+          {% render_text_input form.notes2 rows=3 %}
+        </div>
+      </div>
+      <input type="submit" class="pg-button-primary" value="Save"/>
+    </form>
+  </section>
+{% endblock %}

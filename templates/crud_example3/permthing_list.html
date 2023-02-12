@@ -1,0 +1,77 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load i18n %}
+{% block app %}
+  <section class="app-card">
+    <h3 class="pg-subtitle">PermThings</h3>
+    <p>PermThings are an example team-specific object.</p>
+
+    {% if user.is_superuser %}
+    <h4 class="pg-subtitle mt-4">Supers Can't Play Here</h4>
+    <p>Congratulations! You're a superuser, which means you automatically get full permissions. Try creating a regular user and logging in, and coming back to this page to see what permissions can do.</p>
+    {% else %}
+    <h4 class="pg-subtitle mt-4">Set My Permissions</h4>
+    <p>For demo purposes, use these buttons to set my permission level, and see what changes on this page and the detail page.</p>
+    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 0 %}">None</a>
+    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 1 %}">View Summary</a>
+    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 2 %}">View</a>
+    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 3 %}">Change</a>
+    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 4 %}">Add</a>
+    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 5 %}">Delete</a>
+    {% endif %}
+  </section>
+  {% if perms.crud_example3.view_summary_permthing %}
+  <section class="app-card">
+    <h3 class="pg-subtitle">All PermThings</h3>
+
+    {% include "web/components/paginator.html" %}
+
+    {% for object in object_list %}
+      {% if forloop.first %}
+        <div class="table-responsive">
+          <table class="table pg-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% endif %}
+            <tr>
+              <td>
+                {% if perms.crud_example3.view_permthing %}
+                <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+                {% else %}
+                {{ object.name }}
+                {% endif %}
+              </td>
+              <td>{{ object.number }}</td>
+              <td>{{ object.notes }}</td>
+            </tr>
+            {% if forloop.last %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    {% empty %}
+      <div class="mb-2">There aren't any PermThings! Add one below.</div>
+    {% endfor %}
+
+    <!-- Uncomment if you want a second paginator at the bottom
+    {% include "web/components/paginator_htmx.html" %}
+    -->
+
+    <div class="mt-2">
+      {% if perms.crud_example3.add_permthing %}
+      <a class="pg-button-secondary"
+         href="{% url 'crud_example3:permthing_create' request.team.slug %}">
+        <span class="pg-icon"><i class="fa fa-plus"></i></span>
+        <span>Add PermThing</span>
+      </a>
+      {% endif %}
+    </div>
+  </section>
+  {% endif %}
+{% endblock %}

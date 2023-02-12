@@ -1,0 +1,57 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load i18n %}
+{% block app %}
+  <section class="app-card">
+    <h3 class="pg-subtitle">InputThings</h3>
+    <p>InputThings are an example team-specific object.</p>
+  </section>
+  <section class="app-card">
+    <h3 class="pg-subtitle">All InputThings</h3>
+
+    {% include "web/components/paginator.html" %}
+
+    {% for object in object_list %}
+      {% if forloop.first %}
+        <div class="table-responsive">
+          <table class="table pg-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>State</th>
+                <th>Number</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% endif %}
+            <tr>
+              <td>
+                <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+              </td>
+              <td>{{ object.extra }}</td>
+              <td>{{ object.number }}</td>
+              <td>{{ object.notes }}</td>
+            </tr>
+            {% if forloop.last %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    {% empty %}
+      <div class="mb-2">There aren't any InputThings! Add one below.</div>
+    {% endfor %}
+
+    <!-- Uncomment if you want a second paginator at the bottom
+    {% include "web/components/paginator_htmx.html" %}
+    -->
+
+    <div class="mt-2">
+      <a class="pg-button-secondary"
+         href="{% url 'crud_example4:inputthing_create' request.team.slug %}">
+        <span class="pg-icon"><i class="fa fa-plus"></i></span>
+        <span>Add InputThing</span>
+      </a>
+    </div>
+  </section>
+{% endblock %}

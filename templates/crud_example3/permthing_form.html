@@ -1,0 +1,40 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load form_tags %}
+{% block page_head %}
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+{% endblock page_head %}
+{% block app %}
+  <nav aria-label="breadcrumbs">
+    <ol class="pg-breadcrumbs">
+      <li>
+        <a href="{% url 'crud_example3:permthing_list' request.team.slug %}">PermThings</a>
+      </li>
+      {% if object %}
+        <li>
+          <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+        </li>
+        <li class="pg-breadcrumb-active" aria-current="page">Edit</li>
+      {% else %}
+        <li class="pg-breadcrumb-active" aria-current="page">New</li>
+      {% endif %}
+    </ol>
+  </nav>
+  <section class="app-card">
+    <h3 class="pg-subtitle">
+      {% if object %}
+        Edit {{ object.name }}
+      {% else %}
+        New PermThing
+      {% endif %}
+    </h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      {% render_text_input form.name %}
+      {% render_text_input form.number %}
+      {% render_text_input form.notes %}
+      <input type="submit" class="pg-button-primary" value="Save"/>
+    </form>
+  </section>
+{% endblock %}
