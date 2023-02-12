@@ -11,4 +11,3 @@
 * Based on my earlier <https://github.com/pcherna/pegasus-example-apps>
 * Cleaner organization, removed many quirks
 * Much better paginator template and code
-

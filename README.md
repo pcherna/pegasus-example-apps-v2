@@ -36,7 +36,7 @@ Each app:
 * **Thing** and **TeamThing** implement a basic CRUD API using django-rest-framework
 * **PermThing** implements permission-based access to deny all, view, add, change, and delete objects, as well as one custom permission ("view summary")
 * **InputThing** implements enhanced form-field options such as controlling the number of rows in a text input, and disabling fields. As well, it shows the use of AlpineJS for simple client-side actions like showing/hiding related fields, or validating an email address.
- 
+
 ## Choosing FBV or CBV
 
 (**Thing** and **TeamThing** only, the others have CBVs)
@@ -283,7 +283,7 @@ The `{% render_checkboxlist_input %}` template tag lets you render a CheckboxSel
 
 ## Tech Notes -- AlpineJS
 
-AlpineJS lets you easily achieve lightweight client side behaviors. The form template `inputthing_form.html` shows two different uses:
+AlpineJS lets you easily achieve lightweight client side behaviors. You can do a lot with AlpineJS, with or withou HTMX. The form template `inputthing_form.html` shows two different uses:
 
 * How to use one field (our checkbox called **extra**) to show or hide other fields
 * How to do as-you-type validation (of an email address)
@@ -310,8 +310,6 @@ Breaking that down:
 * `x-transition.duration.250ms` is an Alpine directive requesting that a transition be used to make the div come and go.
 
 The other example showcases as-you-type validation. A `validateEmail()` JavaScript function will return True if the email looks fully formed. We then show or hide a valid or invalid message based on that. See the actual code for details.
-
-
 
 ## Notes and Todos
 
