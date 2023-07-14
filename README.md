@@ -283,7 +283,7 @@ The `{% render_checkboxlist_input %}` template tag lets you render a CheckboxSel
 
 ## Tech Notes -- AlpineJS
 
-AlpineJS lets you easily achieve lightweight client side behaviors. You can do a lot with AlpineJS, with or withou HTMX. The form template `inputthing_form.html` shows two different uses:
+AlpineJS lets you easily achieve lightweight client side behaviors. You can do a lot with AlpineJS, with or without HTMX. The form template `inputthing_form.html` shows two different uses:
 
 * How to use one field (our checkbox called **extra**) to show or hide other fields
 * How to do as-you-type validation (of an email address)
