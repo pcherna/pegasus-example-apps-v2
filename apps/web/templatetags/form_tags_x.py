@@ -4,6 +4,10 @@ from .form_tags import _render_field
 
 # Django template tags based on the bulma-styled Pegasus form_tags.py, with extra capabilities
 
+# ZZZ: Todo
+# - Dive into search filter tags
+# - Add is-fullwidth to select_class makes most buttons look better (fix any overwide ones with layout)
+
 register = template.Library()
 
 
@@ -57,6 +61,7 @@ def render_text_input(form_field, disabled=False, locked=False, rows=None, type=
     return _render_field(TEXT_INPUT_TEMPLATE, form_field)
 
 
+# ZZZ: Add is-fullwidth to select_class makes most buttons look better (fix any overwide ones with layout)
 @register.simple_tag
 def render_select_input(form_field, disabled=False, locked=False, xmodel=None, xref=None):
     """Enhanced tag for rendering a select widget. Like Pegasus-standard render_select_input,

@@ -22,7 +22,7 @@ PAGINATE_BY = 4
 
 # --------------------------------------------------------------------------------
 
-# TeamThing (team-specific CRUD example) Function-Based View implemmtation
+# TeamThing (team-specific CRUD example) Function-Based View implementation
 
 
 @login_and_team_required
@@ -46,7 +46,8 @@ def teamthing_list_view(request, team_slug):
     context["active_tab"] = "crud_example2"
     context["page_obj"] = page
     context["object_list"] = page.object_list
-    context["elided_page_range"] = list(paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=2))
+    context["is_paginated"] = page.has_other_pages
+    context["elided_page_range"] = list(paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1))
     return render(request, "crud_example2/teamthing_list.html", context)
 
 
@@ -111,7 +112,7 @@ def teamthing_delete_view(request, team_slug, pk):
 
 # --------------------------------------------------------------------------------
 
-# TeamThing (team-specific CRUD example) Class-Based View implemmtation
+# TeamThing (team-specific CRUD example) Class-Based View implementation
 
 
 class TeamThingListView(LoginAndTeamRequiredMixin, ListView):
@@ -128,7 +129,7 @@ class TeamThingListView(LoginAndTeamRequiredMixin, ListView):
         page = context["page_obj"]
         # list() realizes the iterator into a list, so we can twice if desired (above and below list)
         context["elided_page_range"] = list(
-            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=2)
+            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1)
         )
         return context
 
@@ -208,7 +209,7 @@ class TeamThingListHtmxView(LoginAndTeamRequiredMixin, ListView):
         page = context["page_obj"]
         # list() realizes the iterator into a list, so we can twice if desired (above and below list)
         context["elided_page_range"] = list(
-            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=2)
+            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1)
         )
         return context
 

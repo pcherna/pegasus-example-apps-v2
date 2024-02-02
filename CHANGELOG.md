@@ -1,5 +1,10 @@
 # Changelog -- Example Apps for Saas Pegasus, v2
 
+## v2.2 – 2-Feb-2024
+
+* Fixed HTMX pagination in function-based views. The context was missing `is_paginated`
+* Paginator is easier to understand when `on_ends=1` rather than `2`, meaning we always show the page-number of the first and last page, instead of the first two and last two pages.
+
 ## v2.1 – 11-Feb-2023
 
 * Added **crud_example3** which contains **PermThing**, that shows off the use of permissions to shape the GUI and capabilities.

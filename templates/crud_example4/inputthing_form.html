@@ -49,16 +49,14 @@
           {% render_text_input form.birthdate type="date" %}
         </div>
       </div>
-      <div class="mb-3">
-        {% render_text_input form.email xmodel="email" %}
-        <span class="pg-icon has-text-success" x-show="validateEmail(email)">
-          <i class="fa fa-circle-check mr-1"></i>
-          Looks like a valid email address
-        </span>
-        <span class="pg-icon has-text-danger" x-show="email != '' && !validateEmail(email)">
-          <i class="fa fa-circle-xmark mr-1"></i>
-          Please provide a valid email
-        </span>
+      {% render_text_input form.email xmodel="email" %}
+      <div class="mb-3" x-show="validateEmail(email)">
+        <span class="pg-icon has-text-success"><i class="fa fa-circle-check mr-1"></i></span>
+        Looks like a valid email address
+      </div>
+      <div class="mb-3" x-show="email != '' && !validateEmail(email)">
+        <span class="pg-icon has-text-danger"><i class="fa fa-circle-xmark mr-1"></i></span>
+        Please provide a valid email
       </div>
       {% render_checkbox_input form.extra xmodel="extra" %}
         <div x-cloak x-show="extra"

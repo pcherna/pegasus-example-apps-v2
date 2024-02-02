@@ -16,7 +16,7 @@ PAGINATE_BY = 4
 
 # --------------------------------------------------------------------------------
 
-# InputThing (team-specific CRUD example) Class-Based View implemmtation
+# InputThing (team-specific CRUD example) Class-Based View implementation
 
 
 class InputThingDetailView(LoginAndTeamRequiredMixin, DetailView):
@@ -94,7 +94,7 @@ class InputThingListHtmxView(LoginAndTeamRequiredMixin, ListView):
         page = context["page_obj"]
         # list() realizes the iterator into a list, so we can twice if desired (above and below list)
         context["elided_page_range"] = list(
-            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=2)
+            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1)
         )
         return context
 

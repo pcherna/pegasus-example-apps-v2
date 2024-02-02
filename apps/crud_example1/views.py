@@ -21,7 +21,7 @@ PAGINATE_BY = 4
 
 # --------------------------------------------------------------------------------
 
-# Thing (non-team-specific CRUD example) Function-Based View implemmtation
+# Thing (non-team-specific CRUD example) Function-Based View implementation
 
 
 @login_required
@@ -44,7 +44,8 @@ def thing_list_view(request):
     context["active_tab"] = "crud_example1"
     context["page_obj"] = page
     context["object_list"] = page.object_list
-    context["elided_page_range"] = list(paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=2))
+    context["is_paginated"] = page.has_other_pages
+    context["elided_page_range"] = list(paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1))
     return render(request, "crud_example1/thing_list.html", context)
 
 
@@ -98,7 +99,7 @@ def thing_delete_view(request, pk):
 
 # --------------------------------------------------------------------------------
 
-# Thing (non-team-specific CRUD example) Class-Based View implemmtation
+# Thing (non-team-specific CRUD example) Class-Based View implementation
 
 
 class ThingListView(LoginRequiredMixin, ListView):
@@ -113,7 +114,7 @@ class ThingListView(LoginRequiredMixin, ListView):
         page = context["page_obj"]
         # list() realizes the iterator into a list, so we can twice if desired (above and below list)
         context["elided_page_range"] = list(
-            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=2)
+            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1)
         )
         return context
 
@@ -181,7 +182,7 @@ class ThingListHtmxView(LoginRequiredMixin, ListView):
         page = context["page_obj"]
         # list() realizes the iterator into a list, so we can twice if desired (above and below list)
         context["elided_page_range"] = list(
-            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=2)
+            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1)
         )
         return context
 

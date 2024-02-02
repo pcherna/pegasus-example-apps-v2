@@ -66,7 +66,7 @@ def permthing_set_perms_view(request, team_slug, perm_level):
 
 # --------------------------------------------------------------------------------
 
-# PermThing (team-specific CRUD example) Function-Based View implemmtation
+# PermThing (team-specific CRUD example) Function-Based View implementation
 
 
 # Note: This view should in theory require crud_example3.view_summary_permthing permission, however the
@@ -92,7 +92,8 @@ def permthing_list_view(request, team_slug):
     context["active_tab"] = "crud_example3"
     context["page_obj"] = page
     context["object_list"] = page.object_list
-    context["elided_page_range"] = list(paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=2))
+    context["is_paginated"] = page.has_other_pages
+    context["elided_page_range"] = list(paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1))
     return render(request, "crud_example3/permthing_list.html", context)
 
 
@@ -161,7 +162,7 @@ def permthing_delete_view(request, team_slug, pk):
 
 # --------------------------------------------------------------------------------
 
-# PermThing (team-specific CRUD example) Class-Based View implemmtation
+# PermThing (team-specific CRUD example) Class-Based View implementation
 
 
 class PermThingDetailView(LoginAndTeamRequiredMixin, UserPassesTestMixin, DetailView):
@@ -253,7 +254,7 @@ class PermThingListHtmxView(LoginAndTeamRequiredMixin, ListView):
         page = context["page_obj"]
         # list() realizes the iterator into a list, so we can twice if desired (above and below list)
         context["elided_page_range"] = list(
-            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=2)
+            page.paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=1)
         )
         return context
 
