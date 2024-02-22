@@ -95,7 +95,7 @@ git clone git@github.com:pcherna/pegasus-example-apps.git
     path("crud_example1/", include("apps.crud_example1.urls")),
 ```
 
-* Add **crud_example2**'s URLs to your project in `<project_slug>/urls.py`. Since these example are team-speicif, add the URLs to `team_urlpatterns`:
+* Add the URLs from **crud_example2**, **crud_example3**, and **crud_example4** to your project in `<project_slug>/urls.py`. Since these examples are team-specific, add the URLs to `team_urlpatterns`:
 
 ```python
     path("crud_example2/", include("apps.crud_example2.urls")),
