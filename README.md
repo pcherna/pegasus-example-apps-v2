@@ -72,6 +72,7 @@ git clone git@github.com:pcherna/pegasus-example-apps.git
   * `paginator.html`
   * `paginator_htmx.html`
   * `crud_example_nav.html`
+* If you use `crud_example_4`, also copy `apps\web\templatetags\form_tags_x.py` into the matching place in your project.
 * If you did not choose all four apps, delete any you did not choose from `crud_example_nav.html`
 * Add entries for the example classes to the left nav, by editing `web/components/app_nav.html`, as follows:
   * After the line `{% include "web/components/team_nav.html" %}`, add:
