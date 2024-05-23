@@ -12,19 +12,27 @@
     <h3 class="pg-subtitle">PermThings</h3>
     <p>PermThings are an example team-specific object.</p>
     {% if user.is_superuser %}
-    <h4 class="pg-subtitle mt-4">Supers Can't Play Here</h4>
-    <p>Congratulations! You're a superuser, which means you automatically get full permissions. Try creating a regular user and logging in, and coming back to this page to see what permissions can do.</p>
+      <h4 class="pg-subtitle mt-4">SuperUsers can't really explore this example</h4>
+      <p>
+        Congratulations! You're a superuser, which means you automatically get full permissions. Try creating a regular user and logging in, and coming back to this page to see what permissions can do.
+      </p>
     {% else %}
-    <h4 class="pg-subtitle mt-4">Set My Permissions</h4>
-    <p>
-      For demo purposes, use these buttons to set my permission level, and see what changes on this page and the detail page.
-    </p>
-    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 0 %}">None</a>
-    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 1 %}">View Summary</a>
-    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 2 %}">View</a>
-    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 3 %}">Change</a>
-    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 4 %}">Add</a>
-    <a class="button is-gray" hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 5 %}">Delete</a>
+      <h4 class="pg-subtitle mt-4">Set My Permissions</h4>
+      <p>
+        For demo purposes, use these buttons to set my permission level, and see what changes on this page and the detail page.
+      </p>
+      <a class="button is-gray"
+         hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 0 %}">None</a>
+      <a class="button is-gray"
+         hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 1 %}">View Summary</a>
+      <a class="button is-gray"
+         hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 2 %}">View</a>
+      <a class="button is-gray"
+         hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 3 %}">Change</a>
+      <a class="button is-gray"
+         hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 4 %}">Add</a>
+      <a class="button is-gray"
+         hx-post="{% url 'crud_example3:permthing_set_perms' request.team.slug 5 %}">Delete</a>
     {% endif %}
   </section>
   {% if perms.crud_example3.view_summary_permthing %}
@@ -34,11 +42,11 @@
       {% include "crud_example3/permthing_list_htmx_partial.html" %}
       <div class="mt-2">
         {% if perms.crud_example3.add_permthing %}
-        <a class="pg-button-secondary"
-           href="{% url 'crud_example3:permthing_create' request.team.slug %}">
-          <span class="pg-icon"><i class="fa fa-plus"></i></span>
-          <span>Add PermThing</span>
-        </a>
+          <a class="pg-button-secondary"
+             href="{% url 'crud_example3:permthing_create' request.team.slug %}">
+            <span class="pg-icon"><i class="fa fa-plus"></i></span>
+            <span>Add PermThing</span>
+          </a>
         {% endif %}
       </div>
     </section>
