@@ -1,19 +1,28 @@
 {% load i18n %}
 {% load team_tags %}
 <li>
-  <a href="{% url 'crud_example1:thing_list' %}" {% if active_tab == 'crud_example1' %}class="is-active"{% endif %}>
-    <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span><span class="is-hidden-tablet-only">{% translate "Things" %}</span>
+  <a href="{% url 'crud_example1:thing_list' %}"
+     class="navbar-item{% if active_tab == 'crud_example1' %} is-active{% endif %}">
+    <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span><span class="is-hidden-tablet-only"}>{% translate "Things" %}</span>
   </a>
 </li>
 {% if request.team %}
   <li>
-    <a href="{% url 'crud_example2:teamthing_list' request.team.slug %}" {% if active_tab == 'crud_example2' %}class="is-active"{% endif %}>
-      <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span><span class="is-hidden-tablet-only">{% translate "TeamThings" %}</span>
+    <a href="{% url 'crud_example2:teamthing_list' request.team.slug %}"
+       class="navbar-item{% if active_tab == 'crud_example2' %} is-active{% endif %}">
+      <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span>
+      <span class="is-hidden-tablet-only">{% translate "TeamThings" %}</span>
     </a>
-    <a href="{% url 'crud_example3:permthing_list' request.team.slug %}" {% if active_tab == 'crud_example3' %}class="is-active"{% endif %}>
+  </li>
+  <li>
+    <a href="{% url 'crud_example3:permthing_list' request.team.slug %}"
+       class="navbar-item{% if active_tab == 'crud_example3' %} is-active{% endif %}">
       <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span><span class="is-hidden-tablet-only">{% translate "PermThings" %}</span>
     </a>
-    <a href="{% url 'crud_example4:inputthing_list' request.team.slug %}" {% if active_tab == 'crud_example4' %}calass="is-active"{% endif %}>
+  </li>
+  <li>
+    <a href="{% url 'crud_example4:inputthing_list' request.team.slug %}"
+       class="navbar-item{% if active_tab == 'crud_example4' %} is-active{% endif %}">
       <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span><span class="is-hidden-tablet-only">{% translate "InputThings" %}</span>
     </a>
   </li>
