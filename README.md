@@ -74,7 +74,7 @@ git clone git@github.com:pcherna/pegasus-example-apps.git
   * `crud_example_nav.html`
 * If you use `crud_example_4`, also copy `apps\web\templatetags\form_tags_x.py` into the matching place in your project.
 * If you did not choose all four apps, delete any you did not choose from `crud_example_nav.html`
-* Add entries for the example classes to the left nav, by editing `web/components/app_nav.html`, as follows:
+* Add entries for the example classes to the left nav, by editing `web/components/app_menu_items.html`, as follows:
   * After the line `{% include "web/components/team_nav.html" %}`, add:
 
 ```python
@@ -122,7 +122,7 @@ If you're running natively, do
 
 ## Tech Notes -- Pegasus
 
-* The code has been tested using Pegasus 2023.2 (and Pegasus 2023.1)
+* The code has been tested using Pegasus 2024.5.3
 * The HTML for the views is designed to match the Pegasus example app.
 * Pegasus offers a choice of CSS frameworks, but so far these examples only implement the Bulma option.
 
