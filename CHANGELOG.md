@@ -1,5 +1,9 @@
 # Changelog -- Example Apps for Saas Pegasus, v2
 
+## v2.4 – 23-May-2024
+
+* Fix back button after using htmx paginator.
+
 ## v2.3 – 23-May-2024
 
 * Fixed responsive layout of left-nav items

@@ -99,8 +99,9 @@ class InputThingListHtmxView(LoginAndTeamRequiredMixin, ListView):
         return context
 
     def get_template_names(self):
-        """If we are receiving an htmx request, return just the partial, else the whole page."""
-        if "HX-Request" in self.request.headers:
+        """If we are receiving an htmx request for the object-list, return the
+        corresponding partial template, else the whole-page template."""
+        if self.request.htmx.target == "object-list":
             return ["crud_example4/inputthing_list_htmx_partial.html"]
         else:
             # Use the full template

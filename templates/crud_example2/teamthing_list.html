@@ -8,9 +8,7 @@
   </section>
   <section class="app-card">
     <h3 class="pg-subtitle">All TeamThings</h3>
-
     {% include "web/components/paginator.html" %}
-
     {% for object in object_list %}
       {% if forloop.first %}
         <div class="table-responsive">
@@ -39,11 +37,9 @@
     {% empty %}
       <div class="mb-2">There aren't any TeamThings! Add one below.</div>
     {% endfor %}
-
     <!-- Uncomment if you want a second paginator at the bottom
-    {% include "web/components/paginator_htmx.html" %}
-    -->
-
+    {% include "web/components/paginator.html" %}
+-->
     <div class="mt-2">
       <a class="pg-button-secondary"
          href="{% url 'crud_example2:teamthing_create' request.team.slug %}">

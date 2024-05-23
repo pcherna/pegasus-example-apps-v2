@@ -8,9 +8,7 @@
   </section>
   <section class="app-card">
     <h3 class="pg-subtitle">All InputThings</h3>
-
     {% include "web/components/paginator.html" %}
-
     {% for object in object_list %}
       {% if forloop.first %}
         <div class="table-responsive">
@@ -41,11 +39,9 @@
     {% empty %}
       <div class="mb-2">There aren't any InputThings! Add one below.</div>
     {% endfor %}
-
     <!-- Uncomment if you want a second paginator at the bottom
-    {% include "web/components/paginator_htmx.html" %}
-    -->
-
+    {% include "web/components/paginator.html" %}
+-->
     <div class="mt-2">
       <a class="pg-button-secondary"
          href="{% url 'crud_example4:inputthing_create' request.team.slug %}">

@@ -214,22 +214,13 @@ class TeamThingListHtmxView(LoginAndTeamRequiredMixin, ListView):
         return context
 
     def get_template_names(self):
-        """If we are receiving an htmx request, return just the partial, else the whole page."""
-        if "HX-Request" in self.request.headers:
+        """If we are receiving an htmx request for the object-list, return the
+        corresponding partial template, else the whole-page template."""
+        if self.request.htmx.target == "object-list":
             return ["crud_example2/teamthing_list_htmx_partial.html"]
         else:
             # Use the full template
             return ["crud_example2/teamthing_list_htmx.html"]
-
-    def dispatch(self, request, *args, **kwargs):
-        """Since this view returns different results when it's an HTMX (partial) versus full request,
-        Let the browser know to cache those things differently."""
-        response = super().dispatch(request, *args, **kwargs)
-        # Use HTTP "Vary" response header to tell the browser cache that the response can differ
-        # based on the values in HX-Request, and not to fold things into the same cache
-        # See https://htmx.org/docs/#caching and https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching#vary
-        response["Vary"] = "HX-Request"
-        return response
 
 
 # --------------------------------------------------------------------------------

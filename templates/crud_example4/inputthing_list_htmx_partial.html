@@ -1,5 +1,5 @@
 <!-- htmx requests and inserts this HTML when things change -->
-<div hx-target="this">
+<div id="object-list" hx-target="this">
   {% include "web/components/paginator_htmx.html" %}
   {% for object in object_list %}
     {% if forloop.first %}
