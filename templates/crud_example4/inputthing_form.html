@@ -1,9 +1,6 @@
 {% extends "web/app/app_base.html" %}
 {% load static %}
 {% load form_tags_x %}
-{% block page_head %}
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-{% endblock page_head %}
 {% block app %}
   <nav aria-label="breadcrumbs">
     <ol class="pg-breadcrumbs">
@@ -41,27 +38,21 @@
           return res.test(String(email).toLowerCase());
         }
       }">
-      <div class="columns">
-        <div class="column is-6">
-          {% render_text_input form.name %}
+        <div class="columns">
+          <div class="column is-6">{% render_text_input form.name %}</div>
+          <div class="column is-6">{% render_text_input form.birthdate type="date" %}</div>
         </div>
-        <div class="column is-6">
-          {% render_text_input form.birthdate type="date" %}
+        {% render_text_input form.email xmodel="email" %}
+        <div class="mb-3" x-show="validateEmail(email)">
+          <span class="pg-icon has-text-success"><i class="fa fa-circle-check mr-1"></i></span>
+          Looks like a valid email address
         </div>
-      </div>
-      {% render_text_input form.email xmodel="email" %}
-      <div class="mb-3" x-show="validateEmail(email)">
-        <span class="pg-icon has-text-success"><i class="fa fa-circle-check mr-1"></i></span>
-        Looks like a valid email address
-      </div>
-      <div class="mb-3" x-show="email != '' && !validateEmail(email)">
-        <span class="pg-icon has-text-danger"><i class="fa fa-circle-xmark mr-1"></i></span>
-        Please provide a valid email
-      </div>
-      {% render_checkbox_input form.extra xmodel="extra" %}
-        <div x-cloak x-show="extra"
-          x-transition.duration.250ms
-          >
+        <div class="mb-3" x-show="email != '' && !validateEmail(email)">
+          <span class="pg-icon has-text-danger"><i class="fa fa-circle-xmark mr-1"></i></span>
+          Please provide a valid email
+        </div>
+        {% render_checkbox_input form.extra xmodel="extra" %}
+        <div x-cloak x-show="extra" x-transition.duration.250ms>
           {% render_text_input form.number %}
           {% render_text_input form.blocked1 disabled=True %}
           {% render_text_input form.blocked2 locked=True %}
@@ -69,7 +60,7 @@
           {% render_text_input form.notes2 rows=3 %}
         </div>
       </div>
-      <input type="submit" class="pg-button-primary" value="Save"/>
+      <input type="submit" class="pg-button-primary" value="Save" />
     </form>
   </section>
 {% endblock %}

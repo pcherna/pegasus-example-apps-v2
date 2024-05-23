@@ -1,9 +1,6 @@
 {% extends "web/app/app_base.html" %}
 {% load static %}
 {% load form_tags %}
-{% block page_head %}
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-{% endblock page_head %}
 {% block app %}
   <nav aria-label="breadcrumbs">
     <ol class="pg-breadcrumbs">
@@ -34,7 +31,7 @@
       {% render_text_input form.name %}
       {% render_text_input form.number %}
       {% render_text_input form.notes %}
-      <input type="submit" class="pg-button-primary" value="Save"/>
+      <input type="submit" class="pg-button-primary" value="Save" />
     </form>
   </section>
 {% endblock %}
