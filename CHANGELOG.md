@@ -1,5 +1,11 @@
 # Changelog -- Example Apps for Saas Pegasus, v2
 
+## v2.3 – 23-May-2024
+
+* Fixed responsive layout of left-nav items
+* Pegasus already includes htmx and alpinejs, so we no longer pull in our own versions.
+* Verified against Pegasus 2024.5.3.
+
 ## v2.2 – 2-Feb-2024
 
 * Fixed HTMX pagination in function-based views. The context was missing `is_paginated`
