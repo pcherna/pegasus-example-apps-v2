@@ -1,0 +1,25 @@
+{% load i18n %}
+<div class="modal" id="columns-modal">
+  <div class="modal-background modal-closer"></div>
+  <div class="modal-card">
+    <form id="column-form"
+          action="{% url 'crud_example5:sortfilterthing_list' request.team.slug %}"
+          hx-get="."
+          hx-target="#object-list"
+          hx-include="#filter-form,#sort-form,#page-form"
+          hx-push-url="true">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Configure columns</p>
+        <button class="delete modal-closer"
+                type="button"
+                aria-label="{% translate "Close" %}"></button>
+      </header>
+      <section class="modal-card-body">
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button modal-closer ml-2">Apply</button>
+        <button class="button modal-closer ml-2" type="button">Close</button>
+      </footer>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<!-- htmx requests and inserts this HTML when things change -->
+{% if hx_target_object_list %}
+  <!-- In addition to updating the list, do an out-of-band update of the filter-header area -->
+  <div id="filter-header" hx-swap-oob="true">{% include "crud_example5/sortfilterthing_list_filter.html" %}</div>
+{% endif %}
+<div id="object-list" hx-target="this">
+  <div hx-include="#filter-form,#sort-form,#column-form">{% include "web/components/paginator_htmx.html" %}</div>
+  <form id="sort-form">
+    <!-- Hidden sort order, so I can persist via hx-include -->
+    {% if request.GET.sort %}<input type="hidden" name="sort" value="{{ request.GET.sort }}">{% endif %}
+  </form>
+  <form id="page-form">
+    <!-- Hidden page, so I can persist via hx-include -->
+    {% if page_obj.number != 1 %}<input type="hidden" name="page" value="{{ page_obj.number }}">{% endif %}
+  </form>
+  {% for object in object_list %}
+    {% if forloop.first %}
+      <div class="table-responsive">
+        <table class="table pg-table">
+          <thead>
+            <tr>
+              <th class="is-clickable"
+                  hx-get=".?sort={% if request.GET.sort == 'name' or not request.GET.sort %}-name{% else %}name{% endif %}"
+                  hx-params="not sort"
+                  hx-include="#filter-form,#page-form,#column-form"
+                  hx-push-url="true">
+                Name
+                {% if request.GET.sort == 'name' %}
+                  ▲
+                {% elif not request.GET.sort %}
+                  ▲
+                {% elif request.GET.sort == '-name' %}
+                  ▼
+                {% else %}
+                  <span class="has-text-grey-light">◊</span>
+                {% endif %}
+              </th>
+              <th class="is-clickable"
+                  hx-get=".?sort={% if request.GET.sort == 'number' %}-number{% else %}number{% endif %}"
+                  hx-params="not sort"
+                  hx-include="#filter-form,#page-form,#column-form"
+                  hx-push-url="true">
+                Number
+                {% if request.GET.sort == 'number' %}
+                  ▲
+                {% elif request.GET.sort == '-number' %}
+                  ▼
+                {% else %}
+                  <span class="has-text-grey-light">◊</span>
+                {% endif %}
+              </th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% endif %}
+          <tr>
+            <td>
+              <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+            </td>
+            <td>{{ object.number }}</td>
+            <td>{{ object.notes }}</td>
+          </tr>
+          {% if forloop.last %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  {% empty %}
+    <div class="mb-2">There aren't any matching SortFilterThings!</div>
+  {% endfor %}
+  <!-- Uncomment if you want a second paginator at the bottom
+  {% include "web/components/paginator_htmx.html" %}
+-->
+</div>

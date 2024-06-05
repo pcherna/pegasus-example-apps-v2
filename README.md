@@ -22,6 +22,7 @@ This replaces the older [first version of this project](https://github.com/pcher
 * **crud_example2** is an app containing the **TeamThing** model, which is an example team-specific object.
 * **crud_example3** is an app containing the **PermThing** model, which is an example showing how permissions can be used to shape the UI and capabilities.
 * **crud_example4** is an app containing the **InputThing** model, which is an example showing enhanced form fields including client-side behaviors.
+* **crud_example5** is an app containing the **SortFilterThing** model, which is an example showing sorting and filtering in the list view. **This one is a work in progress, pretty ugly internally, with a few behavior bugs too.**
 
 Each app:
 
@@ -36,6 +37,7 @@ Each app:
 * **Thing** and **TeamThing** implement a basic CRUD API using django-rest-framework
 * **PermThing** implements permission-based access to deny all, view, add, change, and delete objects, as well as one custom permission ("view summary")
 * **InputThing** implements enhanced form-field options such as controlling the number of rows in a text input, and disabling fields. As well, it shows the use of AlpineJS for simple client-side actions like showing/hiding related fields, or validating an email address.
+* **SortFilterThing** has a fancy list view that lets you sort up or down on the **Name** or **Number** column, and has text filters to filter the ilist.
 
 ## Choosing FBV or CBV
 
@@ -66,13 +68,14 @@ git clone git@github.com:pcherna/pegasus-example-apps.git
 ### Integrate the new apps into your project
 
 * Choose which apps you want to try in your project (see [Tech Notes – Dependencies](#tech-notes----dependencies)).
-* Add the code by copying `apps/crud_example1/*`, `apps/crud_example_2/*`, `apps/crud_example_4/*`, and `apps/crud_example_4/*` into the matching place in your project, i.e. into your project as `apps/crud_example1/*` etc.
-* Add the templates by copying `templates/crud_example1/*`, `templates/crud_example_2/*`, `templates/crud_example_3/*`, and `templates/crud_example_4/*` into the matching place in your project, i.e. into your project as `templates/crud_example1/*` etc.
+* Add the code by copying `apps/crud_example1/*`, `apps/crud_example2/*`, `apps/crud_example4/*`, and `apps/crud_example4/*` into the matching place in your project, i.e. into your project as `apps/crud_example1/*` etc.
+* Add the templates by copying `templates/crud_example1/*`, `templates/crud_example2/*`, `templates/crud_example3/*`, and `templates/crud_example4/*` into the matching place in your project, i.e. into your project as `templates/crud_example1/*` etc.
 * Copy the following files from `web/components` into the same place in your project, i.e. into your project's `web/components` folder:
   * `paginator.html`
   * `paginator_htmx.html`
   * `crud_example_nav.html`
-* If you use `crud_example_4`, also copy `apps\web\templatetags\form_tags_x.py` into the matching place in your project.
+* If you use `crud_example4`, also copy `apps\web\templatetags\form_tags_x.py` into the matching place in your project.
+* If you use `crud_example5`, also copy `apps\utils\paginator.py` and `apps\web\templatetags\filter_tags.py` iinto the matching places in your project.
 * If you did not choose all four apps, delete any you did not choose from `crud_example_nav.html`
 * Add entries for the example classes to the left nav, by editing `web/components/app_menu_items.html`, as follows:
   * After the line `{% include "web/components/team_nav.html" %}`, add:
@@ -311,6 +314,11 @@ Breaking that down:
 * `x-transition.duration.250ms` is an Alpine directive requesting that a transition be used to make the div come and go.
 
 The other example showcases as-you-type validation. A `validateEmail()` JavaScript function will return True if the email looks fully formed. We then show or hide a valid or invalid message based on that. See the actual code for details.
+
+## Tech Notes -- Sorting and Filtering
+
+* The **django-filters** package is used for sorting and filtering
+* It's tricky to get the behaviors right in the form
 
 ## Notes and Todos
 

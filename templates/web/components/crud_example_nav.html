@@ -17,13 +17,22 @@
   <li>
     <a href="{% url 'crud_example3:permthing_list' request.team.slug %}"
        class="navbar-item{% if active_tab == 'crud_example3' %} is-active{% endif %}">
-      <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span><span class="is-hidden-tablet-only">{% translate "PermThings" %}</span>
+      <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span>
+      <span class="is-hidden-tablet-only">{% translate "PermThings" %}</span>
     </a>
   </li>
   <li>
     <a href="{% url 'crud_example4:inputthing_list' request.team.slug %}"
        class="navbar-item{% if active_tab == 'crud_example4' %} is-active{% endif %}">
-      <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span><span class="is-hidden-tablet-only">{% translate "InputThings" %}</span>
+      <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span>
+      <span class="is-hidden-tablet-only">{% translate "InputThings" %}</span>
+    </a>
+  </li>
+  <li>
+    <a href="{% url 'crud_example5:sortfilterthing_list' request.team.slug %}"
+       class="navbar-item{% if active_tab == 'crud_example5' %} is-active{% endif %}">
+      <span class="pg-icon"><i class="fa fa-puzzle-piece"></i></span>
+      <span class="is-hidden-tablet-only">{% translate "SortFilterThings" %}</span>
     </a>
   </li>
 {% endif %}

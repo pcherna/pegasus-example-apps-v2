@@ -1,0 +1,34 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load form_tags %}
+{% block app %}
+  <nav aria-label="breadcrumbs">
+    <ol class="pg-breadcrumbs">
+      <li>
+        <a href="{% url 'crud_example5:sortfilterthing_list' request.team.slug %}">SortFilterThings</a>
+      </li>
+      {% if object %}
+        <li>
+          <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+        </li>
+        <li class="pg-breadcrumb-active" aria-current="page">Edit</li>
+      {% else %}
+        <li class="pg-breadcrumb-active" aria-current="page">New</li>
+      {% endif %}
+    </ol>
+  </nav>
+  <section class="app-card">
+    <h3 class="pg-subtitle">
+      {% if object %}
+        Edit {{ object.name }}
+      {% else %}
+        New SortFilterThing
+      {% endif %}
+    </h3>
+    <form method="post">
+      {% csrf_token %}
+      {% render_form_fields form %}
+      <input type="submit" class="pg-button-primary" value="Save" />
+    </form>
+  </section>
+{% endblock %}

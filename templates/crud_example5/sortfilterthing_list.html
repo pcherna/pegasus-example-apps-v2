@@ -1,0 +1,51 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load filter_tags %}
+{% load i18n %}
+{% block app %}
+  <section class="app-card">
+    <h3 class="pg-subtitle">SortFilterThings</h3>
+    <p>SortFilterThings show off sorting and filtering.</p>
+    <p>THIS IS A WORK IN PROGRESS! Still ugly internally and has some bugs</p>
+    <div x-init="let modalId = 'columns-modal'; let App = SiteJS.app; App.Modals.initializeModal(modalId); ">
+      <button class="pg-button-secondary is-small modal-opener">Modal</button>
+      {% include "crud_example5/sortfilterthing_columns_modal.html" %}
+    </div>
+  </section>
+  <section class="app-card">
+    <h3 class="pg-subtitle">All SortFilterThings</h3>
+    <!-- The filter block -->
+    {% if filter %}
+      <!-- As a form, hx-get will include the form values as query-parameters -->
+      <form id="filter-form"
+            hx-target="#object-list"
+            hx-push-url="true"
+            hx-include="#sort-form,#page-form,#column-form"
+            x-data="{ show_filter: true }">
+        <div class="message mb-5" style="background-color:hsl(218, 74%, 90%);">
+          <div id="filter-header">{% include "crud_example5/sortfilterthing_list_filter.html" %}</div>
+          <div x-cloak
+               x-show="show_filter"
+               x-transition.duration.150ms
+               class="my-0 columns is-vcentered px-2">
+            <!-- these render tags include hx-trigger=(when changed) -->
+            <div class="column pt-0 is-3">{% render_text_hx_filter filter filter.form.name xget="." %}</div>
+            <div class="column pt-0 is-3">{% render_text_hx_filter filter filter.form.number xget="." %}</div>
+          </div>
+        </div>
+      </form>
+    {% endif %}
+    <!-- Include the actual object list -->
+    {% include "crud_example5/sortfilterthing_list_objects.html" %}
+    <div class="mt-2">
+      <a class="pg-button-secondary"
+         href="{% url 'crud_example5:sortfilterthing_create' request.team.slug %}">
+        <span class="pg-icon"><i class="fa fa-plus"></i></span>
+        <span>Add SortFilterThing</span>
+      </a>
+    </div>
+  </section>
+{% endblock %}
+{% block page_js %}
+  <script src="{% static 'js/app-bundle.js' %}"></script>
+{% endblock %}

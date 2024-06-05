@@ -1,0 +1,18 @@
+<!--This part of the filter-form can change as you adjust the filters or sorting -->
+<div>
+  <div class="has-text-weight-bold is-size-6 py-3 pl-4">
+    {% if filtered_count != total_count %}
+      Matches {{ filtered_count }} of {{ total_count }} SortFilterThings
+    {% else %}
+      {{ total_count }} SortFilterThings
+    {% endif %}
+    <!--
+      <span class="ml-4 button is-small" @click="show_filter = !show_filter">Filters <span class="ml-2 pg-icon">
+          <i x-show="!show_filter" class="fa fa-caret-right"></i>
+          <i x-cloak x-show="show_filter" class="fa fa-caret-down"></i>
+      </span></span>
+      -->
+    <!-- Clear refreshes the whole page (closest body), and only preserves order (sort=) -->
+    <span class="ml-2 button is-small" hx-get=".">Clear Filters</span>
+  </div>
+</div>
