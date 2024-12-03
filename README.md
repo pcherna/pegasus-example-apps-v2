@@ -60,7 +60,7 @@ In the following instructions, replace `<project_slug>` with your Pegasus projec
 ### Clone this repository into its own folder
 
 ```bash
-git clone git@github.com:pcherna/pegasus-example-apps.git
+git clone git@github.com:pcherna/pegasus-example-apps-v2.git
 ```
 
 ### Integrate the new apps into your project
